@@ -153,8 +153,7 @@ body {
 
 /* ── Architecture figure ── */
 .architecture-figure {
-  margin: 1rem;
-  padding: 1rem;
+  margin: 1.25rem auto 1.75rem;
 }
 
 .architecture-figure img {
