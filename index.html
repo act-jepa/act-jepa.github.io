@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ACT-JEPA: Efficient Policy Representation Learning</title>
+  <meta
+    name="description"
+    content="ACT-JEPA is a joint-embedding predictive architecture for efficient policy representation learning, combining imitation learning with JEPA latent world modeling."
+  />
+  <link rel="canonical" href="https://act-jepa.github.io/" />
+  <meta property="og:title" content="ACT-JEPA: Efficient Policy Representation Learning" />
+  <meta
+    property="og:description"
+    content="ACT-JEPA combines imitation learning with JEPA latent world modeling to improve policy representation learning."
+  />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://act-jepa.github.io/" />
+  <meta property="og:image" content="https://act-jepa.github.io/assets/architecture-overview.svg" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="ACT-JEPA: Efficient Policy Representation Learning" />
+  <meta
+    name="twitter:description"
+    content="ACT-JEPA combines imitation learning with JEPA latent world modeling to improve policy representation learning."
+  />
+  <meta name="twitter:image" content="https://act-jepa.github.io/assets/architecture-overview.svg" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+    rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+
+<body>
+
+  <header class="hero">
+    <h1 class="title">
+      ACT-JEPA: Novel Joint-Embedding Predictive Architecture for Efficient Policy Representation Learning
+      <br />
+    </h1>
+
+    <p class="authors">
+      <span>Aleksandar Vujinović,</span>
+      <span>Aleksandar Kovačević</span>
+    </p>
+
+    <p class="affiliations">
+      <span> University of Novi Sad</span>
+    </p>
+
+    <div class="links">
+      <a href="https://arxiv.org/abs/2501.14622" class="link-btn" target="_blank" rel="noopener noreferrer">
+        <i class="fas fa-book" aria-hidden="true"></i> Paper
+      </a>
+      <a href="#" class="link-btn">
+        <i class="fab fa-github" aria-hidden="true"></i> Coming soon
+      </a>
+    </div>
+  </header>
+
+  <main class="content">
+
+    <figure class="architecture-figure">
+      <img src="assets/architecture-overview.svg" alt="ACT-JEPA architecture overview" />
+    </figure>
+
+    <section class="abstract">
+      <h2 class="section-title">Abstract</h2>
+      <p>
+        Learning efficient representations for decision-making policies is a challenge in imitation learning (IL).
+        Current IL methods require expert demonstrations, which are expensive to collect. Additionally, they are not
+        explicitly trained to understand the environment. Consequently, they have underdeveloped world models.
+        Self-supervised learning (SSL) offers an alternative, as it can learn a world model from diverse, unlabeled
+        data.
+
+        However, most SSL methods are inefficient because they operate in raw input space. In this work, we propose
+        ACT-JEPA, a novel architecture that unifies IL and SSL to enhance policy representations. It is trained
+        end-to-end to jointly predict action sequences and latent observation sequences. To learn in latent space, we
+        utilize Joint-Embedding Predictive Architecture, which allows the model to filter out irrelevant details and
+        learn a robust world model.
+
+        ACT-JEPA is evaluated in different environments and across multiple tasks. Results show that it outperforms
+        the strongest baseline in all environments, achieving up to 40% improvement in world model understanding and
+        up to 10% higher task success rate.
+      </p>
+    </section>
+
+    <section>
+      <h2 class="section-title">Method</h2>
+      <p>
+        ACT-JEPA is an architecture designed to improve action prediction and world model understanding.
+        The model learns to generate executable actions using IL, while simultaneously learning a latent world model
+        using JEPA.
+        The world model is developed by learning to predict future states in latent space, allowing the model to focus
+        on high-level semantic information instead of irrelevant details.
+        This approach enables efficient learning, develops a robust world model, and improves action prediction.
+      </p>
+    </section>
+
+    <section>
+      <h2 class="section-title">Results</h2>
+      <p>
+        We evaluate ACT-JEPA on three simulated benchmarks: Push-T, ManiSkill, and Meta-World.
+        The experiments test whether the model learns useful environment dynamics, whether those representations improve
+        control, and whether end-to-end training is better than separating world-model learning from policy learning.
+      </p>
+
+      <h3 class="result-title">World Model Understanding</h3>
+      <p>
+        We track world model understanding by testing whether the learned representations can reconstruct future states
+        (trajectories).
+        Compared to ACT, which is trained only for action prediction, ACT-JEPA predicts future states more accurately
+        across all benchmarks, reducing RMSE by 29–37% and ATE by 29–40%.
+      </p>
+
+      <div class="result-figures">
+        <figure class="result-figure">
+          <img src="assets/world-modeling-rmse.png" alt="RMSE world-model prediction error during training" loading="lazy" decoding="async" />
+          <figcaption>RMSE during training. Lower is better.</figcaption>
+        </figure>
+        <figure class="result-figure">
+          <img src="assets/world-modeling-ate.png" alt="ATE world-model prediction error during training" loading="lazy" decoding="async" />
+          <figcaption>ATE during training. Lower is better.</figcaption>
+        </figure>
+      </div>
+
+      <h3 class="result-title">Policy Performance</h3>
+      <p>
+        Beyond world modeling, ACT-JEPA also improves decision-making.
+        It achieves the highest task success rate in every benchmark, improving over ACT by 7% on Push-T, 10% on
+        ManiSkill, and 2% on Meta-World.
+      </p>
+
+      <table class="results-table">
+        <caption>Average task success rate (%)</caption>
+        <thead>
+          <tr>
+            <th>Method</th>
+            <th>Push-T</th>
+            <th>ManiSkill</th>
+            <th>Meta-World</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>AR transformer</td>
+            <td>0%</td>
+            <td>8%</td>
+            <td>38.3%</td>
+          </tr>
+          <tr>
+            <td>ACT</td>
+            <td>34%</td>
+            <td>26%</td>
+            <td>90%</td>
+          </tr>
+          <tr>
+            <td><strong>ACT-JEPA</strong></td>
+            <td><strong>41%</strong></td>
+            <td><strong>36%</strong></td>
+            <td><strong>92%</strong></td>
+          </tr>
+        </tbody>
+      </table>
+
+      <h3 class="result-title">Representation Transfer</h3>
+      <p>
+        We isolate the JEPA world-modeling objective to test whether it learns features that transfer beyond state
+        prediction to action prediction.
+        As pretraining progresses, action reconstruction loss decreases, suggesting that world model representations
+        learned via JEPA generalize to the action prediction task.
+      </p>
+
+      <figure class="result-figure result-figure-wide">
+        <img src="assets/transfer-action-loss.png" alt="Action reconstruction loss during JEPA pretraining" loading="lazy" decoding="async" />
+        <figcaption>Action reconstruction loss decreases as JEPA pretraining progresses.</figcaption>
+      </figure>
+
+      <h3 class="result-title">Joint Optimization</h3>
+      <p>
+        We compare end-to-end training with a two-stage pipeline that learns the world model first and the policy
+        afterward.
+        By learning both actions and the world model jointly, ACT-JEPA develops more robust representations.
+      </p>
+
+      <table class="results-table">
+        <caption>End-to-end vs. two-stage task success rate (%)</caption>
+        <thead>
+          <tr>
+            <th>Method</th>
+            <th>Push-T</th>
+            <th>ManiSkill</th>
+            <th>Meta-World</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Two-stage approach</td>
+            <td>27%</td>
+            <td>0%</td>
+            <td>23.3%</td>
+          </tr>
+          <tr>
+            <td><strong>ACT-JEPA</strong></td>
+            <td><strong>41%</strong></td>
+            <td><strong>36%</strong></td>
+            <td><strong>92%</strong></td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section class="bibtex-section">
+      <h2 class="section-title">BibTeX</h2>
+      <pre class="bibtex"><code>@article{vujinovic2025actjepa,
+  title   = {ACT-JEPA: Novel Joint-Embedding Predictive Architecture for Efficient Policy Representation Learning},
+  author  = {Vujinovic, Aleksandar and Kovacevic, Aleksandar},
+  journal = {arXiv preprint arXiv:2501.14622},
+  year    = {2025}
+}</code></pre>
+    </section>
+
+  </main>
+
+</body>
+
+</html>
